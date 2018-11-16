@@ -1,2 +1,13 @@
+# 自動生成
 node_modules
+dist
+
+# Jest
+coverage
+
+# Mac
+.DS_Store
+*.bak
+
+# yarnエラー
 yarn-error.log
