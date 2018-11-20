@@ -14,11 +14,19 @@ $ git clone git@github.com:kbsh/blog-serverless-spa.git
 // リポジトリ直下に移動
 $ cd blog-serverless-spa
 
-// Dockerイメージの作成、ビルド
-$ docker-compose up -d --build
+// Dockerイメージの作成、開発用ビルド
+$ docker-compose -f docker-compose.yml -f docker-compose-development.yml up -d --build
+// 本番用の場合はこちら
+// $ docker-compose up -d --build
 
 // npmパッケージインストール
 $ docker-compose run --rm app yarn install
+```
+
+#### ブラウザ確認
+```
+// 開発用ビルドの場合、webサーバーがたてられているのでブラウザからアクセスできる
+$ open http://localhost:8080
 ```
 
 ## Scripts

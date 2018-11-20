@@ -1,0 +1,15 @@
+version: '3'
+services:
+  web:
+    build: ./docker/web
+    volumes:
+      - ./docker/web/default.conf:/etc/nginx/conf.d/bo
+      - .:/var/www:ro
+    ports:
+      - "8080:80"
+    environment:
+      - NGINX_PORT=80
+      - ROOT=/var/www
+    command: /bin/bash -c "envsubst < /etc/nginx/conf.d/bo > /etc/nginx/conf.d/default.conf && exec nginx -g 'daemon off;'"
+    links:
+      - "app"
