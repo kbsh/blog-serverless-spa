@@ -2,6 +2,7 @@ import React from "react";
 import { lifecycle } from "recompose";
 import Footer from "./Footer";
 import Header from "./Header";
+import Router from "./Router";
 
 const App = lifecycle({
   componentDidMount() {
@@ -11,6 +12,7 @@ const App = lifecycle({
   return (
     <>
       <Header />
+      <Router />
       <Footer />
     </>
   );
