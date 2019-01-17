@@ -1,9 +1,10 @@
 import { StyleRulesCallback, withStyles } from "@material-ui/core/styles";
-import { ClassNameMap } from "@material-ui/core/styles/withStyles";
+import { WithStyles } from "@material-ui/core/styles/withStyles";
 import React from "react";
 import { lifecycle } from "recompose";
 
-const styles: StyleRulesCallback = () => ({
+type Style = "root";
+const style: StyleRulesCallback<Style> = () => ({
   root: {
     marginTop: 100,
     background: "dimgrey",
@@ -11,9 +12,7 @@ const styles: StyleRulesCallback = () => ({
   },
 });
 
-interface Props {
-  classes: ClassNameMap;
-}
+type Props = WithStyles<Style>;
 
 const List = lifecycle({
   componentDidMount() {
@@ -29,4 +28,4 @@ const List = lifecycle({
   );
 });
 
-export default withStyles(styles)(List);
+export default withStyles<Style>(style)(List);

@@ -1,9 +1,10 @@
 import { StyleRulesCallback, withStyles } from "@material-ui/core/styles";
-import { ClassNameMap } from "@material-ui/core/styles/withStyles";
+import { WithStyles } from "@material-ui/core/styles/withStyles";
 import React from "react";
 import { lifecycle } from "recompose";
 
-const styles: StyleRulesCallback = () => ({
+type Style = "root";
+const style: StyleRulesCallback<Style> = () => ({
   root: {
     marginTop: 100,
     background: "dimgrey",
@@ -11,9 +12,7 @@ const styles: StyleRulesCallback = () => ({
   },
 });
 
-interface Props {
-  classes: ClassNameMap;
-}
+type Props = WithStyles<Style>;
 
 const Footer = lifecycle({
   componentDidMount() {
@@ -24,9 +23,9 @@ const Footer = lifecycle({
   const { classes } = props;
   return (
     <div className={classes.root}>
-      © 2015 shohei kitabatake
+      © shohei kitabatake
     </div>
   );
 });
 
-export default withStyles(styles)(Footer);
+export default withStyles<Style>(style)(Footer);

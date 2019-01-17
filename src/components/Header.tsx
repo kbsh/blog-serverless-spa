@@ -1,13 +1,13 @@
-import { AppBar, IconButton, InputBase, Toolbar, Typography } from "@material-ui/core";
+import { AppBar, IconButton, InputBase, Toolbar, Typography, WithStyles } from "@material-ui/core";
 import { StyleRulesCallback, withStyles } from "@material-ui/core/styles";
 import { fade } from "@material-ui/core/styles/colorManipulator";
-import { ClassNameMap } from "@material-ui/core/styles/withStyles";
 import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
 import React from "react";
 import { lifecycle } from "recompose";
 
-const styles: StyleRulesCallback = (theme) => ({
+type Style = "root" | "grow" | "menuButton" | "title" | "search" | "searchIcon" | "inputRoot" | "inputInput";
+const style: StyleRulesCallback<Style> = (theme) => ({
   root: {
     width: "100%",
   },
@@ -67,9 +67,7 @@ const styles: StyleRulesCallback = (theme) => ({
   },
 });
 
-interface Props {
-  classes: ClassNameMap;
-}
+type Props = WithStyles<Style>;
 
 const Header = lifecycle({
   componentDidMount() {
@@ -81,7 +79,7 @@ const Header = lifecycle({
 
   return (
     <div className={classes.root}>
-      <AppBar className={classes.appBar}>
+      <AppBar>
         <Toolbar>
           {/* ドロップメニュー */}
           <IconButton className={classes.menuButton} color="inherit" aria-label="Open drawer">
@@ -113,4 +111,4 @@ const Header = lifecycle({
   );
 });
 
-export default withStyles(styles)(Header);
+export default withStyles<Style>(style)(Header);
