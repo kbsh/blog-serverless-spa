@@ -11,4 +11,10 @@ services:
       - NGINX_PORT=80
       - ROOT=/var/www
     links:
-      - "app"
+      - app
+      - stub-php
+  stub-php:
+    container_name: stub-php
+    build: ./docker/stub-php
+    volumes:
+      - .:/var/www:ro
