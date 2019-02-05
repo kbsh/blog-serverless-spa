@@ -7,8 +7,6 @@ type Style = "root";
 const style: StyleRulesCallback<Style> = () => ({
   root: {
     marginTop: 100,
-    background: "dimgrey",
-    color: "white",
   },
 });
 
