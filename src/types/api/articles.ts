@@ -23,7 +23,7 @@ export type ArticlesApiResponse = {
 /**
  * タグ情報
  */
-type Tag = {
+export type Tag = {
   id: string;
   name: string;
 };

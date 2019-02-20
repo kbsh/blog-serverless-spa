@@ -1,4 +1,5 @@
 import List from "../components/List";
+import Post from "../components/Post";
 
 interface RouteStyle {
   path: string;
@@ -12,6 +13,10 @@ const Routes: RouteStyle[] = [
   {
     path: "/",
     component: List,
+  },
+  {
+    path: "/post/:id",
+    component: Post,
   },
 ];
 
