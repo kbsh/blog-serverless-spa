@@ -1,45 +1,51 @@
+import { Chip } from "@material-ui/core";
 import { StyleRulesCallback, withStyles } from "@material-ui/core/styles";
 import { WithStyles } from "@material-ui/core/styles/withStyles";
 import React from "react";
 import { connect } from "react-redux";
 import { lifecycle } from "recompose";
-import { getArticles } from "../../actions";
+import { getArticle } from "../../actions";
 import { RootState } from "../../types";
-import { ArticlesState } from "../../types/articles";
-import Item from "./Item";
+import { Tag } from "../../types/api/articles";
+import { ArticleState } from "../../types/article";
 
-type Style = "root";
-const style: StyleRulesCallback<Style> = () => ({
+type Style = "root" | "chip";
+const style: StyleRulesCallback<Style> = ({ spacing }) => ({
   root: {
     marginTop: 99,
   },
+  chip: {
+    margin: "auto " + spacing.unit + "px",
+  },
 });
 
-type StateProps = ArticlesState;
+type StateProps = ArticleState;
 export type DispatchProps = typeof mapDispatchToProps;
 type OuterProps = {};
 type Props = StateProps & DispatchProps & OuterProps & WithStyles<Style>;
 
-const List = lifecycle<Props, {}>({
+const Post = lifecycle<Props, {}>({
   componentDidMount() {
-    const { page, tags } = this.props;
-    // TODO カテゴリ、人気記事、新着記事をAPI取得するか
+    const { id } = this.props;
 
-    this.props.getArticles({
-      page,
-      tags,
+    this.props.getArticle({
+      id,
     });
   },
 })((props: Props) => {
-  const { articles, classes } = props;
+  const { classes, id, title, body, tags, updatedAt } = props;
 
   return (
     <div className={classes.root}>
-      {articles.map((article) => {
+      id: {id}
+      title: {title}
+      body: {body}
+      {tags.map((tag: Tag) => {
         return (
-          <Item key={article.id}　{...article} getArticles={props.getArticles} />
+          <Chip key={tag.id} className={classes.chip} label={tag.name} />
         );
       })}
+      updatedAt: {updatedAt}
     </div>
   );
 });
@@ -60,14 +66,14 @@ const mapStateToProps = (
   state: RootState,
   _ownProps: OuterProps,
 ): StateProps => ({
-  ...state.articles,
+  ...state.article,
 });
 
 const mapDispatchToProps = {
-  getArticles,
+  getArticle,
 };
 
 export default connect<StateProps, DispatchProps, OuterProps, RootState>(
   mapStateToProps,
   mapDispatchToProps,
-)(withStyles<Style>(style)(List));
+)(withStyles<Style>(style)(Post));

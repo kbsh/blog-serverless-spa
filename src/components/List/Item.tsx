@@ -7,6 +7,7 @@ import { WithStyles } from "@material-ui/core/styles/withStyles";
 import React from "react";
 import { DispatchProps } from ".";
 import { ArticlesApiResponse } from "../../types/api/articles";
+import { ArticleParams } from "../../types/article";
 import { ArticlesParams } from "../../types/articles";
 
 type Style = "card" | "cardActionArea" | "actions" | "chip";
@@ -31,16 +32,16 @@ const style: StyleRulesCallback<Style> = ({ spacing, palette }) => ({
 type Props = ArticlesApiResponse & DispatchProps & WithStyles<Style>;
 
 const Item = (props: Props) => {
-  const { classes, id, title, tags, updatedAt, getArticles } = props;
+  const { classes, id, title, tags, updatedAt, getArticle, getArticles } = props;
 
   /**
    * 個別記事ページへ遷移する
-   * TODO コンテナコンポーネントに移動したい
-   * @param id 記事ID
    */
   const handleClickItem = () => {
-    // TODO ページ遷移したい
-    console.log(id);
+    const params: ArticleParams = {
+      id,
+    };
+    getArticle(params);
   };
 
   /**

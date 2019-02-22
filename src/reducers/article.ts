@@ -9,9 +9,9 @@ const getArticle = (
   state: ArticleState = {
     id: 0,
     title: "",
+    body: "",
     tags: [],
     updatedAt: "",
-    body: "",
   },
   action: ArticleActions,
 ): ArticleState => {

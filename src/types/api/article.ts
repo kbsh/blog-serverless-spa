@@ -13,10 +13,10 @@ export type ArticleApiRequest = {
 export type ArticleApiResponse = {
   // タイトル
   title: string;
+  // 本文
+  body: string;
   // タグ
   tags: Tag[];
   // 最終更新日時
   updatedAt: string;
-  // 本文
-  body: string;
 };
