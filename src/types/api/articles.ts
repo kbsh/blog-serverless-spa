@@ -3,7 +3,7 @@
  */
 export type ArticlesApiRequest = {
   page: number;
-  tags: string[];
+  tags: number[];
 };
 
 /**
@@ -11,7 +11,7 @@ export type ArticlesApiRequest = {
  */
 export type ArticlesApiResponse = {
   // 記事ID
-  id: string;
+  id: number;
   // タイトル
   title: string;
   // タグ
@@ -24,6 +24,6 @@ export type ArticlesApiResponse = {
  * タグ情報
  */
 export type Tag = {
-  id: string;
+  id: number;
   name: string;
 };
