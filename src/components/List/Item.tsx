@@ -48,7 +48,7 @@ const Item = (props: Props) => {
    * 指定した タグID でフィルターされた一覧ページへ遷移する
    * @param tagId タグID
    */
-  const handleClickTag = (tagId: number) => {
+  const handleClickTag = (tagId: string) => {
     const params: ArticlesParams = {
       page: 1,
       tags: [tagId],
