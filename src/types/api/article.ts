@@ -4,7 +4,7 @@ import { Tag } from "./articles";
  * 記事詳細取得API リクエスト型
  */
 export type ArticleApiRequest = {
-  id: number;
+  id: string;
 };
 
 /**

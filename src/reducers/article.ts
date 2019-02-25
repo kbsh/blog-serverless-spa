@@ -7,7 +7,7 @@ import { ArticleActions, ArticleActionTypes, ArticleState } from "../types/artic
  */
 const getArticle = (
   state: ArticleState = {
-    id: 0,
+    id: "",
     title: "",
     body: "",
     tags: [],

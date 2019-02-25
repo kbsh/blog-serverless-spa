@@ -3,7 +3,7 @@ import { WithStyles } from "@material-ui/core/styles/withStyles";
 import React from "react";
 import { connect } from "react-redux";
 import { lifecycle } from "recompose";
-import { getArticle, getArticles } from "../../actions";
+import { getArticles } from "../../actions";
 import { RootState } from "../../types";
 import { ArticlesState } from "../../types/articles";
 import Item from "./Item";
@@ -37,7 +37,7 @@ const List = lifecycle<Props, {}>({
     <div className={classes.root}>
       {articles.map((article) => {
         return (
-          <Item key={article.id}　{...article} getArticle={props.getArticle} getArticles={props.getArticles} />
+          <Item key={article.id}　{...article} getArticles={props.getArticles} />
         );
       })}
     </div>
@@ -64,7 +64,6 @@ const mapStateToProps = (
 });
 
 const mapDispatchToProps = {
-  getArticle,
   getArticles,
 };
 

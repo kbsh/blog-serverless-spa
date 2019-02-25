@@ -3,11 +3,12 @@ import { StyleRulesCallback, withStyles } from "@material-ui/core/styles";
 import { WithStyles } from "@material-ui/core/styles/withStyles";
 import React from "react";
 import { connect } from "react-redux";
+import { match } from "react-router-dom";
 import { lifecycle } from "recompose";
 import { getArticle } from "../../actions";
 import { RootState } from "../../types";
 import { Tag } from "../../types/api/articles";
-import { ArticleState } from "../../types/article";
+import { ArticleParams, ArticleState } from "../../types/article";
 
 type Style = "root" | "chip";
 const style: StyleRulesCallback<Style> = ({ spacing }) => ({
@@ -21,15 +22,19 @@ const style: StyleRulesCallback<Style> = ({ spacing }) => ({
 
 type StateProps = ArticleState;
 export type DispatchProps = typeof mapDispatchToProps;
-type OuterProps = {};
+type OuterProps = {
+  match?: match<ArticleParams>;
+};
 type Props = StateProps & DispatchProps & OuterProps & WithStyles<Style>;
 
 const Post = lifecycle<Props, {}>({
   componentDidMount() {
-    const { id } = this.props;
+    if (this.props.match === undefined) {
+      return null;
+    }
 
     this.props.getArticle({
-      id,
+      id: this.props.match.params.id,
     });
   },
 })((props: Props) => {
@@ -49,18 +54,6 @@ const Post = lifecycle<Props, {}>({
     </div>
   );
 });
-
-// const mapDispatchToProps = (
-//   dispatch: Dispatch<RootActions>,
-//   _ownProps: OuterProps,
-// ): DispatchProps => ({
-//   increment: () => {
-//     dispatch(actionCreator.counter.increment({ value: 1 }));
-//   },
-//   decrement: () => {
-//     dispatch(actionCreator.counter.decrement({ value: 1 }));
-//   },
-// });
 
 const mapStateToProps = (
   state: RootState,
