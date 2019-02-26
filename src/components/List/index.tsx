@@ -1,5 +1,3 @@
-import { StyleRulesCallback, withStyles } from "@material-ui/core/styles";
-import { WithStyles } from "@material-ui/core/styles/withStyles";
 import React from "react";
 import { connect } from "react-redux";
 import { lifecycle } from "recompose";
@@ -8,17 +6,10 @@ import { RootState } from "../../types";
 import { ArticlesState } from "../../types/articles";
 import Item from "./Item";
 
-type Style = "root";
-const style: StyleRulesCallback<Style> = () => ({
-  root: {
-    marginTop: 99,
-  },
-});
-
 type StateProps = ArticlesState;
 export type DispatchProps = typeof mapDispatchToProps;
 type OuterProps = {};
-type Props = StateProps & DispatchProps & OuterProps & WithStyles<Style>;
+type Props = StateProps & DispatchProps & OuterProps;
 
 const List = lifecycle<Props, {}>({
   componentDidMount() {
@@ -31,16 +22,16 @@ const List = lifecycle<Props, {}>({
     });
   },
 })((props: Props) => {
-  const { articles, classes } = props;
+  const { articles } = props;
 
   return (
-    <div className={classes.root}>
+    <>
       {articles.map((article) => {
         return (
           <Item key={article.id}　{...article} getArticles={props.getArticles} />
         );
       })}
-    </div>
+    </>
   );
 });
 
@@ -70,4 +61,4 @@ const mapDispatchToProps = {
 export default connect<StateProps, DispatchProps, OuterProps, RootState>(
   mapStateToProps,
   mapDispatchToProps,
-)(withStyles<Style>(style)(List));
+)(List);
