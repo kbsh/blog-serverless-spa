@@ -2,22 +2,19 @@ import {
   Card, CardActionArea, CardActions, CardHeader, Chip,
 } from "@material-ui/core";
 import { StyleRulesCallback, withStyles } from "@material-ui/core/styles";
-import { fade } from "@material-ui/core/styles/colorManipulator";
 import { WithStyles } from "@material-ui/core/styles/withStyles";
 import React from "react";
+import { Link } from "react-router-dom";
 import { DispatchProps } from ".";
+import { RoutePathes } from "../../config/routes";
 import { ArticlesApiResponse } from "../../types/api/articles";
 import { ArticlesParams } from "../../types/articles";
+import * as TextUtil from "../../utils/TextUtil";
 
-type Style = "card" | "cardActionArea" | "actions" | "chip";
-const style: StyleRulesCallback<Style> = ({ spacing, palette }) => ({
+type Style = "card" | "actions" | "chip";
+const style: StyleRulesCallback<Style> = ({ spacing }) => ({
   card: {
     margin: spacing.unit * 4 + "px auto",
-  },
-  cardActionArea: {
-    "&:hover": {
-      backgroundColor: fade(palette.common.black, 0.1),
-    },
   },
   actions: {
     display: "flex",
@@ -33,15 +30,8 @@ type Props = ArticlesApiResponse & DispatchProps & WithStyles<Style>;
 const Item = (props: Props) => {
   const { classes, id, title, tags, updatedAt, getArticles } = props;
 
-  /**
-   * 個別記事ページへ遷移する
-   * TODO コンテナコンポーネントに移動したい
-   * @param id 記事ID
-   */
-  const handleClickItem = () => {
-    // TODO ページ遷移したい
-    console.log(id);
-  };
+  // 詳細画面へのパス
+  const pathPost = TextUtil.getRoutePath(RoutePathes.Post, { key: "id", value: String(id) });
 
   /**
    * 指定した タグID でフィルターされた一覧ページへ遷移する
@@ -57,13 +47,15 @@ const Item = (props: Props) => {
 
   return (
     <Card className={classes.card}>
-      <CardActionArea className={classes.cardActionArea} onClick={handleClickItem}>
-        <CardHeader
-          title={title}
-          // componentいけそう
-          subheader={updatedAt}
-        />
-      </CardActionArea>
+      <Link to={pathPost}>
+        <CardActionArea>
+          <CardHeader
+            title={title}
+            // componentいけそう
+            subheader={updatedAt}
+          />
+        </CardActionArea>
+      </Link>
       <CardActions className={classes.actions} disableActionSpacing>
         {/* タグ */}
         {tags.map((tag) => {

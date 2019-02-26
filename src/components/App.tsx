@@ -9,6 +9,7 @@ type Style = "body";
 const style: StyleRulesCallback<Style> = () => ({
   body: {
     padding: "0 25%",
+    marginTop: 100,
   },
 });
 
