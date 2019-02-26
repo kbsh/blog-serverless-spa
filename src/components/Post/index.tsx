@@ -1,19 +1,24 @@
-import { Chip } from "@material-ui/core";
+import { Card, CardContent, CardHeader, Chip, Typography } from "@material-ui/core";
 import { StyleRulesCallback, withStyles } from "@material-ui/core/styles";
 import { WithStyles } from "@material-ui/core/styles/withStyles";
 import React from "react";
 import { connect } from "react-redux";
-import { match } from "react-router-dom";
+import { Link, match } from "react-router-dom";
 import { lifecycle } from "recompose";
 import { getArticle } from "../../actions";
+import { RoutePathes } from "../../config/routes";
 import { RootState } from "../../types";
 import { Tag } from "../../types/api/articles";
 import { ArticleParams, ArticleState } from "../../types/article";
 
-type Style = "root" | "chip";
+type Style = "card" | "actions" | "chip";
 const style: StyleRulesCallback<Style> = ({ spacing }) => ({
-  root: {
-    marginTop: 99,
+  card: {
+    margin: spacing.unit * 4 + "px auto",
+  },
+  actions: {
+    display: "flex",
+    margin: spacing.unit * 2 + "px 0",
   },
   chip: {
     margin: "auto " + spacing.unit + "px",
@@ -38,20 +43,26 @@ const Post = lifecycle<Props, {}>({
     });
   },
 })((props: Props) => {
-  const { classes, id, title, body, tags, updatedAt } = props;
+  const { classes, title, body, tags, updatedAt } = props;
 
   return (
-    <div className={classes.root}>
-      id: {id}
-      title: {title}
-      body: {body}
+    <Card className={classes.card}>
+      <CardHeader
+        title={title}
+        subheader={updatedAt}
+      />
+      {/* タグ */}
       {tags.map((tag: Tag) => {
         return (
-          <Chip key={tag.id} className={classes.chip} label={tag.name} />
+          <Link key={tag.id} to={RoutePathes.Home}>
+            <Chip key={tag.id} className={classes.chip} label={tag.name} />
+          </Link>
         );
       })}
-      updatedAt: {updatedAt}
-    </div>
+      <CardContent>
+        <Typography paragraph>{body}</Typography>
+      </CardContent>
+    </Card>
   );
 });
 

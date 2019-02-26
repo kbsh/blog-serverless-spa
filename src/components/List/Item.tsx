@@ -2,7 +2,6 @@ import {
   Card, CardActionArea, CardActions, CardHeader, Chip,
 } from "@material-ui/core";
 import { StyleRulesCallback, withStyles } from "@material-ui/core/styles";
-import { fade } from "@material-ui/core/styles/colorManipulator";
 import { WithStyles } from "@material-ui/core/styles/withStyles";
 import React from "react";
 import { Link } from "react-router-dom";
@@ -12,15 +11,10 @@ import { ArticlesApiResponse } from "../../types/api/articles";
 import { ArticlesParams } from "../../types/articles";
 import * as TextUtil from "../../utils/TextUtil";
 
-type Style = "card" | "cardActionArea" | "actions" | "chip";
-const style: StyleRulesCallback<Style> = ({ spacing, palette }) => ({
+type Style = "card" | "actions" | "chip";
+const style: StyleRulesCallback<Style> = ({ spacing }) => ({
   card: {
     margin: spacing.unit * 4 + "px auto",
-  },
-  cardActionArea: {
-    "&:hover": {
-      backgroundColor: fade(palette.common.black, 0.1),
-    },
   },
   actions: {
     display: "flex",
@@ -54,7 +48,7 @@ const Item = (props: Props) => {
   return (
     <Card className={classes.card}>
       <Link to={pathPost}>
-        <CardActionArea className={classes.cardActionArea}>
+        <CardActionArea>
           <CardHeader
             title={title}
             // componentいけそう
