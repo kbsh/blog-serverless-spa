@@ -1,4 +1,4 @@
-import { Card, CardContent, CardHeader, Chip, Typography } from "@material-ui/core";
+import { Card, CardContent, CardHeader, Chip } from "@material-ui/core";
 import { StyleRulesCallback, withStyles } from "@material-ui/core/styles";
 import { WithStyles } from "@material-ui/core/styles/withStyles";
 import React from "react";
@@ -60,7 +60,15 @@ const Post = lifecycle<Props, {}>({
         );
       })}
       <CardContent>
-        <Typography paragraph>{body}</Typography>
+        {/* 改行コードを分割 */}
+        {body.split(/\n|\r/g).map((text, key) => {
+          return (
+            <span key={key}>
+              {text}
+              <br />
+            </span>
+          );
+        })}
       </CardContent>
     </Card>
   );
