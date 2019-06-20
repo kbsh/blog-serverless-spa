@@ -21,7 +21,7 @@ const Footer = lifecycle({
   const { classes } = props;
   return (
     <div className={classes.root}>
-      © shohei kitabatake
+      © kbsh
     </div>
   );
 });
